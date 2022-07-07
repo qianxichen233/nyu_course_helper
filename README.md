@@ -31,3 +31,4 @@ This project is just to demonstrate how celery can be integrated with django pro
 
 Now go to browser and access flower real time monitoring web tool by using following url
 http://localhost:5555
+# nyu_course_helper

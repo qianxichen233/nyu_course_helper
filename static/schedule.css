@@ -1,0 +1,524 @@
+div.left>div>p{
+    display: inline-block;
+}
+
+.title{
+    font-weight: bold;
+    text-align: center;
+}
+
+.container{
+    margin-left: 15px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-areas:
+        "filters mid courses"
+        "dline dline dline"
+        "schedules schedules schedules";
+}
+
+.dividing-line{
+    grid-area: dline;
+    height: 1px;
+    background-color: grey;
+}
+
+.left{
+    grid-area: filters;
+}
+
+.middle{
+    grid-area: mid;
+}
+
+#Course_Adder{
+    margin-left: 20%;
+    height: 60px;
+}
+
+.error_info{
+    color: red;
+    font-weight: bold;
+}
+
+.middle>p{
+    text-align: center;
+}
+
+.right{
+    text-align: right;
+    grid-area: courses;
+}
+
+.my_checkbox{
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.my_checkbox input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark{
+    position: absolute;
+    top: 15px;
+    left: 3px;
+    height: 18px;
+    width: 18px;
+    background-color: #eee;
+    box-shadow: 1px 1px 3px black;
+}
+
+.my_checkbox:hover input ~ .checkmark{
+    background-color: #ccc;
+}
+
+.my_checkbox input:checked ~ .checkmark{
+    background-color: #2196F3;
+}
+
+.course_list_button{
+    margin-top: 5px;
+    width: auto;
+    text-align: center;
+}
+
+#form_submit{
+    width: 80%;
+    height: 20%;
+    position:relative;
+    top: 0;
+    left: 10%;
+    background-color: #FF6F61;
+    border: 1px black solid;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+#form_submit:hover{
+    box-shadow:
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+}
+
+#invalid_course_info{
+    display: block;
+    position: relative;
+    text-align: center;
+    top: 5%;
+}
+
+#nxt_btn, #pre_btn{
+    background-color: #f1f1f1;
+    border: none;
+    padding: 0px 16px;
+    font-size: 18px;
+}
+
+#nxt_btn:hover, #pre_btn:hover{
+    background-color: #ddd;
+}
+
+#nxt_btn{
+    float:right;
+}
+
+#pre_btn{
+    float:left;
+}
+
+#display_rating{
+    text-align: center;
+}
+
+li{
+	list-style: none;
+}
+
+ul{
+	margin: 0px;
+	padding: 0px;
+}
+
+.schedule-container{
+    grid-area: schedules;
+	display: grid;
+	grid-template-columns: 60px auto;
+	grid-template-areas:
+        "title title"
+		"blank header"
+		"timeslots events";
+}
+
+.weekdays{
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-weight: bold;
+}
+
+.schedule-header{
+	grid-area: header;
+	background-color: lightblue;
+}
+
+.timeslots-container{
+	grid-area: timeslots;
+	justify-content: left;
+	background-color: lightgrey;
+}
+
+.timeslots{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+    line-height: 0em;
+}
+
+.timeslots li{
+	height: 60px;
+}
+
+.timeslots li::after{
+	content:"";
+	position: absolute;
+	left: 6%;
+	width: 94%;
+	height: 1px;
+	background-color: lightgrey;
+	z-index: 1;
+}
+
+.events-container{
+	display: grid;
+    height: 840px;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(84, 1fr);
+	grid-area: events;
+	position: relative;
+}
+
+.event-slot{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	position: absolute;
+	background-color: darkgrey;
+	color: white;
+    width: auto;
+    text-align: center;
+    border-radius: 8px;
+    z-index: 2;
+}
+
+.schedule-overview{
+    position: absolute;
+    z-index: 3;
+}
+
+.schedule-title{
+    grid-area: title;
+}
+
+.slot-1{
+    grid-row: 10;
+    grid-column: 1;
+    height: 100px;
+    width: 20%;
+}
+
+.schedule-blank{
+    background-color: lightgrey;
+}
+
+.schedule-detail{
+    z-index: 100;
+    display: none;
+}
+
+.event-slot{
+    box-sizing: border-box;
+}
+
+.event-slot:hover .schedule-detail{
+    display: block;
+    position: relative;
+    top: -90px;
+    width: 100%;
+    border: solid 1px black;
+}
+
+.event-slot:hover{
+    z-index: 999;
+}
+
+#display_rating{
+    font-weight: bold;
+}
+
+.schedule-fixed{
+    border: solid 4px silver;
+}
+
+input[type=time]{
+    border: none;
+    color: #2a2c2d;
+    font-size: 14px;
+    font-family: helvetica;
+    width: 90px;
+    background-color: #f4f4f4;
+}
+
+input[type=time]>span{
+    padding-left: 3px;
+}
+
+input[type=time]::-webkit-datetime-edit-fields-wrapper {
+    display: flex;
+}
+
+input[type=time]::-webkit-datetime-edit-text {
+    padding: 5px 4px;
+}
+
+input[type=time]::-webkit-datetime-edit-hour-field {
+    border-radius: 15%;
+    padding: 5px 6px;
+}
+
+input[type=time]::-webkit-datetime-edit-minute-field {
+    border-radius: 15%;
+    padding: 5px 6px;
+}
+
+input[type=time]::-webkit-datetime-edit-ampm-field {
+    border-radius: 15%;
+    color: #fff;
+    padding: 5px 6px;
+}
+
+input[type=time]::-webkit-clear-button {
+    display: none;
+}
+
+input[type=time]::-webkit-inner-spin-button {
+    display: none;
+}
+
+.filter-button{
+    display: block;
+    background-color: white;
+    color: #212121;
+    font-weight: bold;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    border: 2px solid #e5e5e5;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.filter-button>span{
+    transition: color 0.3s;
+}
+
+.filter-button:hover>span{
+    color:#00a1d6;
+}
+
+.filter-button>div{
+    display: none;
+}
+
+.filter-button:hover{
+}
+
+.filter-button:hover>div{
+    display: block;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    position: relative;
+    top: 3px;
+    background-color: white;
+    z-index: 999;
+}
+
+.filter-button>div>div{
+    margin: 0;
+    font-weight: normal;
+    position: relative;
+    top: 0;
+    padding-left: 6px;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: left;
+}
+
+#schedules{
+    margin-left: 15%;
+    border: 1px solid black;
+    border-radius: 3px;
+    width: 70%;
+    height: 150px;
+    overflow: scroll;
+    display: block;
+    text-align: center;
+    line-height: 150px;
+}
+
+#schedules>span{
+}
+
+.course_to_schedule, .break-interval{
+    position: relative;
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.course_to_schedule>p, .break-interval>p{
+    text-align: left;
+    line-height: normal;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding-left: 4px;
+}
+
+.course_to_schedule>button, .break-interval>button{
+    margin-top: 3px;
+    margin-right: 4px;
+}
+
+.filter-buttons{
+    width: 50%;
+    float: left;
+}
+
+.filter-break-intreval{
+    width: 48%;
+    height: 150px;
+    float: right;
+    display: block;
+}
+
+.filter-break-intreval>p{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    height: 25px;
+}
+
+.break-interval-container{
+    border: 1px solid black;
+    border-radius: 3px;
+    height: 125px;
+    overflow: scroll;
+    line-height: 125px;
+    text-align: center;
+}
+
+#add-break-time>span{
+    cursor: pointer;
+}
+
+#add-break-time input[type="button"]{
+    position: relative;
+    left: 30%;
+    width: 35%;
+}
+
+.add_course_switch{
+    position: relative;
+    left: 20%;
+    width: 60%;
+    height: 25px;
+    background-color: white;
+    color: #212121;
+    font-weight: bold;
+    line-height: 25px;
+    border: 2px solid #e5e5e5;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+
+.add_course_switch>p{
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.add_course_switch:hover p{
+    color: #00a1d6;
+}
+
+#course_id_input{
+    width: 0;
+    display: none;
+    transition: width ease 0.3s;
+}
+
+#course_id_input.active{
+    width: 20%;
+}
+
+.loading-scene{
+    visibility: hidden;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: 98%;
+    height: 910px;
+    z-index: 999;
+    background-color: rgb(211 211 211 / 50%);
+}
+
+.loader{
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin{
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin{
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-scene.active{
+    visibility: visible;
+}

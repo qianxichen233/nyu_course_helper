@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>NYU Course Search</title>
+        <link rel="stylesheet" href="{% static '1.css' %}"/>
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+        <form action="{% url 'profile' user.username %}">
+            <input type="submit" value="profile"/>
+        </form>
+        <form action="logout">
+            <input type="submit" value="logout"/>
+        </form>
+        {% else %}
+        <form action="register">
+            <input type="submit" value="register"/>
+        </form>
+        <form action="login">
+            <input type="submit" value="login"/>
+        </form>
+        {% endif %}
+    </body>
+</html>

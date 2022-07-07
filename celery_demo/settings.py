@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'notifications',
+    'mainapp',
 
     'django_celery_results',
     'django_celery_beat'
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'celery_demo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,6 +124,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL='mainapp.MyUser'
+AUTHENTICATION_BACKENDS=(
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+    'mainapp.backends.MyModelBackend'
+)
 
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'

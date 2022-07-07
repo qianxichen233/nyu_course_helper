@@ -19,5 +19,6 @@ from notifications.views import send_notification
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('send_notification', send_notification)
+    path('send_notification', send_notification),
+    path('',include('mainapp.urls'))
 ]

@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Profile</title>
+        <link rel="stylesheet" href="{% static 'profile.css' %}"/>
+        <script src="{% static 'profile.js' %}"></script>
+    </head>
+    <body>
+        <h1>Hello, {{ username }}</h1>
+        <p>
+            I want to generate 
+            <a href="../courseschedule">course schedule</a>
+        </p>
+        <div class="left">
+            <p>Your Course List:</p>
+            {% if courselist %}
+                <p>{% for course in courselist %}</p>
+                <div class="course_list">
+                    <label>{{course.course_type}} {{course.course_num}}</label>
+                    <form method="POST" action="../deletecourse">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{course.course_type}} {{course.course_num}}" name="course"/>
+                        <input type="submit" value="delete"/>
+                    </form>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No Course In Your List</p>
+            {% endif %}
+        </div>
+        <div class="right">
+            <p>Add New Course Below</p>
+            <form method="POST" action="../addcourse">
+                {% csrf_token %}
+                <input type="text" name="course" id="course" placeholder="eg. CS-UY 1134" onchange="check_course_format()"/>
+                <input type="submit" value="Add" disabled=true/>
+            </form>
+            <p id="course_format_hint"></p>
+        </div>
+    </body>
+</html>

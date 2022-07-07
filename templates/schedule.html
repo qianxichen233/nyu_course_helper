@@ -1,0 +1,167 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Schedule</title>
+        <script src="{% static 'schedule.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'schedule.css' %}"/>
+    </head>
+    <body>
+        <div class="container">
+            <div id="filter-container" class="left">
+                <p class="title">Course Filter</p>
+                <div class="filter-buttons">
+                    <div class="filter-button">
+                        <span>Time Filter</span>
+                        <div>
+                            <div>
+                                <span> No early than </span>
+                                <input type="time" id="earliest_time" value="00:00"><br>
+                            </div>
+                            <div>
+                                <span> No late than </span>
+                                <input type="time" id="latest_time" value="23:59"><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-button">
+                        <span>Class Info Filter</span>
+                        <div>
+                            <div>
+                                <label class="my_checkbox"> Ignore Class Status
+                                    <input type="checkbox" id="ign_stat">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div>
+                                <label class="my_checkbox"> Ignore Professor
+                                    <input type="checkbox" id="ign_pro">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div>
+                                <label class="my_checkbox"> Ignore Location
+                                    <input type="checkbox" id="ign_loc" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-button" id="add-break-time">
+                        <span>Add Break Time Interval</span>
+                        <div>
+                            <div>
+                                <span> Choose the day:</span>
+                                <select id="break_day">
+                                    <option value="Mon">Mon</option>
+                                    <option value="Tue">Tue</option>
+                                    <option value="Wed">Wed</option>
+                                    <option value="Thu">Thu</option>
+                                    <option value="Fri">Fri</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span> Start From </span>
+                                <input type="time" id="break_st" value="08:00">
+                            </div>
+                            <div>
+                                <span> End To </span>
+                                <input type="time" id="break_ed" value="21:00">
+                            </div>
+                            <div>
+                                <input type="button" value="Add" onclick="add_break_time()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-break-intreval">
+                    <p>Break Intervals</p>
+                    <div class="break-interval-container">
+                        <span id="no_break_in_list">No Breaks Specified</span>
+                    </div>
+                </div>
+                <p id="info_display"></p>
+            </div>
+            <div id="filter-center" class="middle">
+                <p class="title">Add Course Below</p>
+                <div class="add_course_switch" onclick="switch_course_add();">
+                    <p>Add Course With Course ID</p>
+                </div>
+                <div id="Course_Adder">
+                    <input type="text" id="course_input" placeholder="eg. CS-UY 1134" onchange="checkinput();"/>
+                    <input type="text" id="course_id_input" placeholder="eg. 10000" onchange="checkidinput();"/>
+                    <button id="AddCoursebtn" type="button" onclick="add_course()" disabled>Add Course</button><br/>
+                    <span class="error_info" id="invalid_input_info"></span>
+                </div>
+                <button id="form_submit" type="button" onclick="course_schedule()">Generate Your Course Schedule</button>
+                <span class="error_info" id="invalid_course_info"></span>
+            </div>
+            <div class="right">
+                <p class="title">Course List</p>
+                <div id="schedules">
+                    <span id="no_course_in_list">No Course in List</span>
+                </div>
+            </div>
+            <div class="dividing-line"></div>
+            <div class="schedule-container">
+                <div class="loading-scene">
+                    <div class="loader"></div>
+                </div>
+                <div class="schedule-title">
+                    <p id="display_rating"></p>
+                </div>
+                <div class="schedule-blank"></div>
+                <div class="schedule-header">
+                    <ul class="weekdays">
+                        <li>Monday</li>
+                        <li>Tuesday</li>
+                        <li>Wednesday</li>
+                        <li>Thursday</li>
+                        <li>Friday</li>
+                    </ul>
+                </div>
+                <div class="timeslots-container">
+                    <ul class="timeslots">
+                        <li>8:00</li>
+                        <li>9:00</li>
+                        <li>10:00</li>
+                        <li>11:00</li>
+                        <li>12:00</li>
+                        <li>13:00</li>
+                        <li>14:00</li>
+                        <li>15:00</li>
+                        <li>16:00</li>
+                        <li>17:00</li>
+                        <li>18:00</li>
+                        <li>19:00</li>
+                        <li>20:00</li>
+                        <li>21:00</li>
+                    </ul>
+                </div>
+                <div class="events-container">
+                    
+                    <!--
+                    <div class="event-slot slot-1" onclick="fix_schedule(this)">
+                        <div class="schedule-overview">
+                            <span>CS-UY 2124 (23333)</span>
+                            <br>
+                            <span>Lecture</span>
+                        </div>
+                        <div class="schedule-detail">
+                            <span>10:00-12:00</span><br/>
+                            <span>location: Brooklyn</span><br/>
+                            <span>Class Status: </span>
+                            <span style="color:green">Open</span><br/>
+                            <span>Professors: </span><br/>
+                            <span>Bruce Alex | Rate: N/A </span><br/>
+                        </div>
+                    </div>
+                    -->
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

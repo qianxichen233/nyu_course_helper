@@ -12,10 +12,9 @@ app = Celery('celery_demo')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.beat_schedule = {
-    'add-every-5-seconds': {
-        'task': 'notifications.tasks.send_email',
-        'schedule': 1.0,
-        'args': ('hpatel@aaravtech.com','This is sample message.')
+    'crawler': {
+        'task': 'notifications.tasks.run',
+        'schedule': 3000.0,
     }
 }
 

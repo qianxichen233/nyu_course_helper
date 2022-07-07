@@ -1,0 +1,27 @@
+div.left{
+    float:left;
+    width:30%;
+}
+
+div.right{
+    float:left;
+}
+
+label{
+    display: inline-block;
+    width: auto;
+    text-align: left;
+}
+
+div.left form{
+    display:inline-block;
+}
+
+div.left input[type='submit']{
+    vertical-align: text-bottom;
+}
+
+#course_format_hint{
+    font-size: 12px;
+    color:red;
+}
