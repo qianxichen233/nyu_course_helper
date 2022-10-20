@@ -1,9 +1,11 @@
 from mainapp.models import *
 from selenium import webdriver
+from selenium.webdriver.support.ui import Select
 from time import sleep
 from copy import deepcopy
 from selenium.common.exceptions import TimeoutException
 import re
+import os
 
 class crawler:
     def __init__(self):
@@ -37,6 +39,8 @@ class crawler:
             'Graduate':'17580',
             'Law':'5003',
         }
+
+        self.__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
     def map_school_name(self, school_name):
         for key in self.school_id:
@@ -75,7 +79,7 @@ class crawler:
         major=major[0]
 
         major.click()
-        sleep(15)
+        sleep(30)
         tmp_course_numbers=deepcopy(course_numbers)
         for course in driver.find_elements_by_css_selector("#win0divSELECT_COURSE\$0>div"):
             course_title=course.find_element_by_css_selector("div>div>div>div>span>b")
@@ -216,8 +220,14 @@ class crawler:
         
     def add_courses(self, courses):
         #print(courses)
-        driver=webdriver.Chrome(options=self.options)
+        driver=webdriver.Chrome(executable_path=os.path.join(self.__location__, 'chromedriver'))
         driver.get(self.url)
+
+        select=Select(driver.find_element_by_id('NYU_CLS_WRK_NYU_SPRING$38$'))
+        select.select_by_visible_text('Yes')
+
+        sleep(5)
+
         last_course=""
         course_nums=[]
         course_type=""
@@ -266,7 +276,7 @@ class crawler:
             pass
 
     def update_professor(self, soft_update=True):
-        driver=webdriver.Chrome(options=self.options)
+        driver=webdriver.Chrome(options=self.options, executable_path=os.path.join(self.__location__, 'chromedriver'))
         driver.set_page_load_timeout(6)
         for professor in Professor.objects.all():
             if(soft_update and professor.rate!=None):
